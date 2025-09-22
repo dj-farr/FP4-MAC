@@ -111,7 +111,7 @@ module tb_fp4mac_top;
     end
   endtask
 
-  // Pretty print
+
   function automatic string fp4_str(input logic [3:0] z);
     fp4_str = $sformatf("{s=%0d, e=%0d, m=%0d}", z[3], z[2:1], z[0]);
   endfunction
@@ -143,7 +143,7 @@ module tb_fp4mac_top;
     drive_pair(FP4_P1_5, FP4_P1_5); // 2.25
     drive_pair(FP4_P1_5, FP4_P1_0); // 1.5
 
-    // Allow for pipeline latency (bump if your mul has more)
+  
     repeat (6) @(negedge clk);
 
     pulse_flush();

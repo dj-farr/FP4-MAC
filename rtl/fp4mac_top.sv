@@ -28,7 +28,7 @@ module fp4mac_top (
         .i_data_valid (i_in_valid),
         .a            (i_a),
         .b            (i_b),
-        .o_valid      (m_valid),    // NOTE: o_valid
+        .o_valid      (m_valid),  
         .o_sign       (m_sign),
         .o_exp_u      (m_exp_u),
         .o_sig_grs    (m_sig_grs)

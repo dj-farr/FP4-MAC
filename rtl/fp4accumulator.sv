@@ -1,6 +1,3 @@
-// fp4accumulator (SystemVerilog, Icarus-friendly)
-// Internal sig: 6 bits {I1,I0,F,G,R,S}; unbiased exp: signed [2:0]
-// Packs to 4-bit fp4 {s,e[1:0],m} (RNE). Overflow -> ±6.0, underflow -> 0.
 module fp4accumulator (
     input  logic        i_clk,
     input  logic        i_rst,
