@@ -1,0 +1,20 @@
+# build artifacts
+/build/
+/sim/
+/out/
+/dist/
+
+# sim outputs
+*.vvp
+*.vcd
+*.fst
+*.lxt
+*.log
+*.out
+
+# editors / OS
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
