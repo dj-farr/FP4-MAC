@@ -1,4 +1,6 @@
-module fp4mac_top (
+`timescale 1ns/1ps
+
+module fp4mac_top(
     input  logic        i_clk,
     input  logic        i_rst,         // sync active-high
     input  logic        i_data_valid,  // valid for input pair i_a/i_b
@@ -13,7 +15,7 @@ module fp4mac_top (
     logic       mul_valid;
 
     // instantiate multiplier (registered version)
-    fp4_multiplier mul_u (
+    fp4multiplier mul_u (
         .i_clk        (i_clk),
         .i_rst        (i_rst),
         .i_data_valid (i_data_valid),
@@ -24,7 +26,7 @@ module fp4mac_top (
     );
 
     // instantiate accumulator (no-func version)
-    fp4_accumulator acc_u (
+    fp4accumulator acc_u (
         .i_clk        (i_clk),
         .i_rst        (i_rst),
         .i_data_valid (mul_valid),

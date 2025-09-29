@@ -1,7 +1,7 @@
 # -------- config --------
 RTL := rtl/fp4multiplier.sv rtl/fp4accumulator.sv rtl/fp4mac_top.sv
-TB  := tb/tb_fp4mac_top.sv
-TOP := tb_fp4mac_top
+TB  := tb/tb_fp4mac.sv
+TOP := tb_fp4mac
 
 IVERILOG ?= iverilog
 VVP      ?= vvp
@@ -11,7 +11,7 @@ FLAGS := -g2012 -Wall
 
 BUILD := build
 SIM   := $(BUILD)/sim
-WAVE  := $(BUILD)/dump.vcd
+WAVE  := tb_fp4mac.vcd
 
 # -------- targets --------
 .PHONY: all run wave clean format
@@ -29,4 +29,4 @@ wave: run
 	$(GTKWAVE) $(WAVE) &
 
 clean:
-	rm -rf $(BUILD)
+	rm -rf $(BUILD) *.vcd
