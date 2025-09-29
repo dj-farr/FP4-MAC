@@ -1,5 +1,6 @@
 # -------- config --------
 RTL := rtl/fp4multiplier.sv rtl/fp4accumulator.sv rtl/fp4mac_top.v
+AXI_RTL := rtl/fp4mac_axi.v
 TB  := tb/tb_fp4mac.sv
 TOP := tb_fp4mac
 

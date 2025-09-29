@@ -8,15 +8,27 @@ Takes two FP4 numbers, multiplies them, and adds the result to an accumulator. S
 
 ## Files
 
+### RTL Design
 - `rtl/fp4multiplier.sv` - FP4 multiplier with zero/subnormal handling
 - `rtl/fp4accumulator.sv` - FP4 accumulator with pipeline synchronization  
 - `rtl/fp4mac_top.v` - Top level module (Verilog) connecting multiplier to accumulator
+- `rtl/fp4mac_axi.v` - AXI-Lite wrapper for Zynq integration
 - `tb/tb_fp4mac.sv` - Comprehensive testbench with 25 test cases
+
+### Neural Network Accelerator  
+- `software/nn_demo.c` - ARM software for neural network demo
+- `software/Makefile` - Cross-compilation setup
+- `vivado/create_project.tcl` - Vivado project creation script
 
 ## Usage
 
 ```bash
+# Simulation
 make         # compile with iverilog
 make run     # run simulation 
 make wave    # view waveforms in gtkwave
 make clean   # clean up build files
+
+# Zynq Neural Network Accelerator
+cd vivado && vivado -mode batch -source create_project.tcl  # Create Vivado project
+cd software && make cross  # Cross-compile ARM software
