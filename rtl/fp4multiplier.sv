@@ -18,7 +18,7 @@ module fp4multiplier (
     logic [3:0]  result_comb;
     logic        valid_comb;
 
-    // Simplified E2M1 multiplication using XOR approach with proper zero handling
+    // mutliplication logic
     always_comb begin
         logic sign_result;
         logic [1:0] exp_a, exp_b, exp_result;
@@ -26,7 +26,7 @@ module fp4multiplier (
         logic [3:0] exp_sum;
         logic is_zero_a, is_zero_b;
 
-        // Extract fields
+        // get fields
         exp_a = a_r[2:1];
         exp_b = b_r[2:1];
         man_a = a_r[0];
@@ -34,27 +34,26 @@ module fp4multiplier (
         
         sign_result = a_r[3] ^ b_r[3];
         
-        // Check for zeros: both exp=00 and man=0
+        // check for zeros: both exp=00 and man=0
         is_zero_a = (exp_a == 2'b00) && (man_a == 1'b0);
         is_zero_b = (exp_b == 2'b00) && (man_b == 1'b0);
 
         if (is_zero_a || is_zero_b) begin
-            // Zero multiplication
+            // zero mult
             result_comb = {sign_result, 2'b00, 1'b0};
         end else begin
-            // Use the proven XOR method for mantissa multiplication
+            
             man_result = man_a ^ man_b;
             
-            // Add exponents and subtract bias, add carry from mantissa multiplication
-            exp_sum = {2'b00, exp_a} + {2'b00, exp_b} + (man_a & man_b) - 4'd1;
             
-            // Handle overflow/underflow
+            exp_sum = {2'b00, exp_a} + {2'b00, exp_b} + (man_a & man_b) - 4'd1;
+            // overflow/underflow
             if (exp_sum > 4'd3) begin
-                // Clamp to maximum
+                // clamp to max
                 exp_result = 2'b11;
                 man_result = 1'b1;
             end else if (exp_sum < 4'd0) begin
-                // Clamp to minimum (zero or subnormal)
+                // clamp to minimum (zero/subnormal)
                 exp_result = 2'b00;
                 man_result = 1'b0;
             end else begin

@@ -14,7 +14,7 @@ module fp4mac_top(
     logic [3:0] mul_result;
     logic       mul_valid;
 
-    // instantiate multiplier (registered version)
+    // instantiate multiplier
     fp4multiplier mul_u (
         .i_clk        (i_clk),
         .i_rst        (i_rst),
@@ -25,7 +25,7 @@ module fp4mac_top(
         .o_valid      (mul_valid)
     );
 
-    // instantiate accumulator (no-func version)
+    // instantiate accumulator
     fp4accumulator acc_u (
         .i_clk        (i_clk),
         .i_rst        (i_rst),
