@@ -1,15 +1,22 @@
-# fp4-mac 
+# FP4 MAC Unit
 
-Tiny fp4 MAC: multiplier → accumulator with GRS and RNE packing.
+A 4-bit floating point multiply-accumulate unit using E2M1 format (1 sign bit, 2 exponent bits, 1 mantissa bit). The design includes a 2-stage pipeline with proper timing synchronization between the multiplier and accumulator.
 
-## Layout
-- `rtl/`: synthesizable modules (`fp4multiplier.sv`, `fp4accumulator.sv`, `fp4mac_top.sv`)
-- `tb/`: testbench (`tb_fp4mac_top.sv`)
-- `build/`: generated (sim binary, `dump.vcd`)
+## What it does
+
+Takes two FP4 numbers, multiplies them, and adds the result to an accumulator. Supports the full E2M1 range from -6 to +6, handles subnormals, and includes overflow protection.
+
+## Files
+
+- `rtl/fp4multiplier.sv` - FP4 multiplier with zero/subnormal handling
+- `rtl/fp4accumulator.sv` - FP4 accumulator with pipeline synchronization  
+- `rtl/fp4mac_top.sv` - Top level connecting multiplier to accumulator
+- `tb/tb_fp4mac.sv` - Comprehensive testbench with 25 test cases
 
 ## Usage
+
 ```bash
-make         # compile
-make run     # run tests
-make wave    # open dump.vcd in gtkwave
-make clean   # remove build/
+make         # compile with iverilog
+make run     # run simulation 
+make wave    # view waveforms in gtkwave
+make clean   # clean up build files
