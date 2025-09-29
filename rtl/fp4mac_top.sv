@@ -1,53 +1,36 @@
 module fp4mac_top (
     input  logic        i_clk,
-    input  logic        i_rst,
-
-    input  logic        i_clear,
-    input  logic        i_in_valid,
-    input  logic        i_flush,
-
+    input  logic        i_rst,         // sync active-high
+    input  logic        i_data_valid,  // valid for input pair i_a/i_b
     input  logic [3:0]  i_a,
     input  logic [3:0]  i_b,
-
-    output logic        o_fp4_valid,
-    output logic [3:0]  o_fp4,
-
-    output logic        o_acc_sign,
-    output logic [2:0]  o_acc_exp_u,
-    output logic [5:0]  o_acc_sig6
+    output logic [3:0]  o_accum_fp4,   // accumulated FP4 result
+    output logic        o_accum_valid
 );
-    logic        m_valid;
-    logic        m_sign;
-    logic [2:0]  m_exp_u;
-    logic [4:0]  m_sig_grs;
 
-    // Multiplier
-    fp4multiplier u_mul (
+    // multiplier -> accumulator wires
+    logic [3:0] mul_result;
+    logic       mul_valid;
+
+    // instantiate multiplier (registered version)
+    fp4_multiplier mul_u (
         .i_clk        (i_clk),
         .i_rst        (i_rst),
-        .i_data_valid (i_in_valid),
-        .a            (i_a),
-        .b            (i_b),
-        .o_valid      (m_valid),  
-        .o_sign       (m_sign),
-        .o_exp_u      (m_exp_u),
-        .o_sig_grs    (m_sig_grs)
+        .i_data_valid (i_data_valid),
+        .i_a          (i_a),
+        .i_b          (i_b),
+        .o_result     (mul_result),
+        .o_valid      (mul_valid)
     );
 
-    // Accumulator
-    fp4accumulator u_acc (
-        .i_clk       (i_clk),
-        .i_rst       (i_rst),
-        .i_clear     (i_clear),
-        .i_acc_valid (m_valid),
-        .i_flush     (i_flush),
-        .i_p_sign    (m_sign),
-        .i_p_exp_u   (m_exp_u),
-        .i_p_sig_grs (m_sig_grs),
-        .o_acc_sign  (o_acc_sign),
-        .o_acc_exp_u (o_acc_exp_u),
-        .o_acc_sig6  (o_acc_sig6),
-        .o_fp4_valid (o_fp4_valid),
-        .o_fp4       (o_fp4)
+    // instantiate accumulator (no-func version)
+    fp4_accumulator acc_u (
+        .i_clk        (i_clk),
+        .i_rst        (i_rst),
+        .i_data_valid (mul_valid),
+        .i_fp4        (mul_result),
+        .o_accum      (o_accum_fp4),
+        .o_valid      (o_accum_valid)
     );
+
 endmodule
