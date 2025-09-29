@@ -10,7 +10,7 @@ Takes two FP4 numbers, multiplies them, and adds the result to an accumulator. S
 
 - `rtl/fp4multiplier.sv` - FP4 multiplier with zero/subnormal handling
 - `rtl/fp4accumulator.sv` - FP4 accumulator with pipeline synchronization  
-- `rtl/fp4mac_top.sv` - Top level connecting multiplier to accumulator
+- `rtl/fp4mac_top.v` - Top level module (Verilog) connecting multiplier to accumulator
 - `tb/tb_fp4mac.sv` - Comprehensive testbench with 25 test cases
 
 ## Usage

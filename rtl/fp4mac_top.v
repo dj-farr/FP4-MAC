@@ -1,18 +1,18 @@
 `timescale 1ns/1ps
 
 module fp4mac_top(
-    input  logic        i_clk,
-    input  logic        i_rst,         // sync active-high
-    input  logic        i_data_valid,  // valid for input pair i_a/i_b
-    input  logic [3:0]  i_a,
-    input  logic [3:0]  i_b,
-    output logic [3:0]  o_accum_fp4,   // accumulated FP4 result
-    output logic        o_accum_valid
+    input  wire        i_clk,
+    input  wire        i_rst,         // sync active-high
+    input  wire        i_data_valid,  // valid for input pair i_a/i_b
+    input  wire [3:0]  i_a,
+    input  wire [3:0]  i_b,
+    output wire [3:0]  o_accum_fp4,   // accumulated FP4 result
+    output wire        o_accum_valid
 );
 
     // multiplier -> accumulator wires
-    logic [3:0] mul_result;
-    logic       mul_valid;
+    wire [3:0] mul_result;
+    wire       mul_valid;
 
     // instantiate multiplier
     fp4multiplier mul_u (
